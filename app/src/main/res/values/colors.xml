@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#ab81cd</color>
     <color name="dark_blue">#222a68</color>
+    <color name="m_blue">#574ae2</color>
+    <color name="mauve">#e2adf2</color>
 </resources>

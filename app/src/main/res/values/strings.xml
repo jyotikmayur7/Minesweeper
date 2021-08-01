@@ -7,4 +7,5 @@
     <string name="medium">MEDIUM</string>
     <string name="minesweeper">Minesweeper</string>
     <string name="hard">HARD</string>
+    <string name="or">OR</string>
 </resources>

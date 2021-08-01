@@ -11,8 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/easy"
         android:layout_marginEnd="2dp"
+        android:text="@string/easy"
+        android:backgroundTint="@color/m_blue"
         app:layout_constraintEnd_toStartOf="@+id/medium"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="2dp"
         android:text="@string/medium"
+        android:backgroundTint="@color/m_blue"
         app:layout_constraintEnd_toStartOf="@+id/hard"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/easy"
@@ -35,9 +37,10 @@
         android:id="@+id/hard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/hard"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="2dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/hard"
+        android:backgroundTint="@color/m_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/medium"
@@ -49,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
         android:text="@string/select_difficulty"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/purple_200"
         android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,5 +99,46 @@
         app:layout_constraintStart_toStartOf="@+id/best_time"
         app:layout_constraintTop_toBottomOf="@+id/best_time" />
 
+    <TextView
+        android:id="@+id/or_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/or"
+        android:textSize="20dp"
+        android:textColor="@color/lavender"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/line2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/line1"
+        app:layout_constraintTop_toBottomOf="@+id/medium" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/lavender"
+        app:layout_constraintEnd_toStartOf="@+id/or_label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/easy" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="4dp"
+        android:background="@color/lavender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/or_label"
+        app:layout_constraintTop_toBottomOf="@+id/easy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
