@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 setNegativeButton(getString(R.string.cancel)){
                     _, _ ->
                 }
+                show()
             }
         }
 
