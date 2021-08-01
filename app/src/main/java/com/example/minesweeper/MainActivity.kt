@@ -47,19 +47,19 @@ class MainActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             val inflater = this.layoutInflater
             val dialogView: View = inflater.inflate(R.layout.custom_game_add, null)
-            val rowsView: EditText? = findViewById(R.id.rows)
-            val colsView: EditText? = findViewById(R.id.cols)
-            val minesView: EditText? = findViewById(R.id.mines)
+            val rowsView: EditText = dialogView.findViewById(R.id.rows)
+            val colsView: EditText = dialogView.findViewById(R.id.cols)
+            val minesView: EditText = dialogView.findViewById(R.id.mines)
             with(builder){
                 setView(dialogView)
                 setTitle(getString(R.string.add_details))
 
                 setPositiveButton(getString(R.string.add)){
                     _, _ ->
-                    val row = rowsView?.text.toString()
-                    val col = colsView?.text.toString()
-                    val mines = minesView?.text.toString()
-                    if(row.isNullOrEmpty() && col.isNullOrEmpty() && mines.isNullOrEmpty()){
+                    val row = rowsView.text.toString()
+                    val col = colsView.text.toString()
+                    val mines = minesView.text.toString()
+                    if(row.isNotEmpty() && col.isNotEmpty() && mines.isNotEmpty()){
                         showGameBoard(row.toInt(), col.toInt(), mines.toInt())
                     }
                     else{
