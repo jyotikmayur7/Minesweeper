@@ -8,4 +8,7 @@
     <string name="minesweeper">Minesweeper</string>
     <string name="hard">HARD</string>
     <string name="or">OR</string>
+    <string name="rows">Rows</string>
+    <string name="columns">Columns</string>
+    <string name="mines">Mines</string>
 </resources>
