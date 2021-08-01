@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 setTitle(getString(R.string.add_details))
 
                 setPositiveButton(getString(R.string.add)){
-                    _,_ ->
+                    _, _ ->
                     val row = rowsView.text.toString()
                     val col = colsView.text.toString()
                     val mines = minesView.text.toString()
@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity() {
                     else{
                         Toast.makeText(this@MainActivity, "Invalid Input", Toast.LENGTH_SHORT).show()
                     }
+                }
+
+                setNegativeButton(getString(R.string.cancel)){
+                    _, _ ->
                 }
             }
         }
@@ -84,8 +88,8 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
         val gameDataJson = sharedPref.getString(GAME_DATA, null)
         val gson = Gson()
-        val gameData: GameData = gson.fromJson(gameDataJson, GameData::class.java)
-        bestTime.text = getString(R.string.best_time, gameData.bestTime)
-        lastGameTime.text = getString(R.string.last_game_time, gameData.lastGameTime)
+        val gameData: GameData? = gson.fromJson(gameDataJson, GameData::class.java)
+        bestTime.text = getString(R.string.best_time, gameData?.bestTime)
+        lastGameTime.text = getString(R.string.last_game_time, gameData?.lastGameTime)
     }
 }

@@ -13,4 +13,5 @@
     <string name="mines">Mines</string>
     <string name="add_details">Add Details</string>
     <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 </resources>
