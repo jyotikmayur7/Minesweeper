@@ -101,16 +101,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun setErrorListener(editText: EditText){
         editText.error = if(editText.text.toString().isNotEmpty()) null else "Field Cannot be Empty"
-        editText.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
+        with(editText) {
+            addTextChangedListener(object: TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                editText.error = if(editText.text.toString().isNotEmpty()) null else "Field Cannot be Empty"
-            }
-        })
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    error = if(text.toString().isNotEmpty()) null else "Field Cannot be Empty"
+                }
+            })
+        }
     }
 }
