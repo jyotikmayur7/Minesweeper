@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -50,6 +52,9 @@ class MainActivity : AppCompatActivity() {
             val rowsView: EditText = dialogView.findViewById(R.id.rows)
             val colsView: EditText = dialogView.findViewById(R.id.cols)
             val minesView: EditText = dialogView.findViewById(R.id.mines)
+            setErrorListener(rowsView)
+            setErrorListener(colsView)
+            setErrorListener(minesView)
             with(builder){
                 setView(dialogView)
                 setTitle(getString(R.string.add_details))
@@ -92,5 +97,20 @@ class MainActivity : AppCompatActivity() {
         val gameData: GameData? = gson.fromJson(gameDataJson, GameData::class.java)
         bestTime.text = getString(R.string.best_time, gameData?.bestTime?:" - -")
         lastGameTime.text = getString(R.string.last_game_time, gameData?.lastGameTime?:" - -")
+    }
+
+    private fun setErrorListener(editText: EditText){
+        editText.error = if(editText.text.toString().isNotEmpty()) null else "Field Cannot be Empty"
+        editText.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                editText.error = if(editText.text.toString().isNotEmpty()) null else "Field Cannot be Empty"
+            }
+        })
     }
 }
