@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         val medium = findViewById<Button>(R.id.medium)
         val hard = findViewById<Button>(R.id.hard)
         val createCustomBoard = findViewById<Button>(R.id.create_custom_board)
+
+        loadGameData()
     }
 
     private fun loadGameData(){
