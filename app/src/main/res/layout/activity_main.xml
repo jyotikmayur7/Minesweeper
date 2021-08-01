@@ -7,12 +7,41 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/title_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="Minesweeper"
+        android:textSize="30dp"
+        android:textColor="@color/lavender"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/best_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/best_time"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintEnd_toEndOf="@+id/title_label"
+        app:layout_constraintStart_toStartOf="@+id/title_label"
+        app:layout_constraintTop_toBottomOf="@+id/title_label" />
+
+    <TextView
+        android:id="@+id/last_game_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_game_time"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/best_time"
+        app:layout_constraintStart_toStartOf="@+id/best_time"
+        app:layout_constraintTop_toBottomOf="@+id/best_time" />
 </androidx.constraintlayout.widget.ConstraintLayout>

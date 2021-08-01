@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Minesweeper</string>
+    <string name="best_time">Best Time: %1$s</string>
+    <string name="last_game_time">Last Game Time: %1$s</string>
 </resources>
