@@ -4,8 +4,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 
 const val GAME_DATA = "GAME_DATA"
@@ -28,27 +32,52 @@ class MainActivity : AppCompatActivity() {
         loadGameData()
 
         easy.setOnClickListener{
-            val intent = Intent(this, GameBoardActivity::class.java).apply {
-                putExtra("TYPE", "EASY")
-            }
-            startActivity(intent)
+            showGameBoard(8, 8, 7)
         }
 
         medium.setOnClickListener{
-            val intent = Intent(this, GameBoardActivity::class.java).apply {
-                putExtra("TYPE", "MEDIUM")
-            }
-            startActivity(intent)
+            showGameBoard(10, 8, 15)
         }
 
         hard.setOnClickListener{
-            val intent = Intent(this, GameBoardActivity::class.java).apply {
-                putExtra("TYPE", "HARD")
-            }
-            startActivity(intent)
+            showGameBoard(10, 10, 20)
         }
 
+        createCustomBoard.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            val inflater = this.layoutInflater
+            val dialogView: View = inflater.inflate(R.layout.custom_game_add, null)
+            val rowsView = findViewById<EditText>(R.id.rows)
+            val colsView = findViewById<EditText>(R.id.cols)
+            val minesView = findViewById<EditText>(R.id.mines)
+            with(builder){
+                setView(dialogView)
+                setTitle(getString(R.string.add_details))
 
+                setPositiveButton(getString(R.string.add)){
+                    _,_ ->
+                    val row = rowsView.text.toString()
+                    val col = colsView.text.toString()
+                    val mines = minesView.text.toString()
+                    if(row.isNotEmpty() && col.isNotEmpty() && mines.isNotEmpty()){
+                        showGameBoard(row.toInt(), col.toInt(), mines.toInt())
+                    }
+                    else{
+                        Toast.makeText(this@MainActivity, "Invalid Input", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun showGameBoard(row: Int, col: Int, mines: Int){
+        intent = Intent(this, GameBoardActivity::class.java).apply {
+            putExtra("row", row)
+            putExtra("col",col)
+            putExtra("mines", mines)
+        }
+        startActivity(intent)
     }
 
     private fun loadGameData(){
