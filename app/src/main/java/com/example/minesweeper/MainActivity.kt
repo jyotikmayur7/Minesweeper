@@ -1,6 +1,7 @@
 package com.example.minesweeper
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -25,6 +26,29 @@ class MainActivity : AppCompatActivity() {
         val createCustomBoard = findViewById<Button>(R.id.create_custom_board)
 
         loadGameData()
+
+        easy.setOnClickListener{
+            val intent = Intent(this, GameBoardActivity::class.java).apply {
+                putExtra("TYPE", "EASY")
+            }
+            startActivity(intent)
+        }
+
+        medium.setOnClickListener{
+            val intent = Intent(this, GameBoardActivity::class.java).apply {
+                putExtra("TYPE", "MEDIUM")
+            }
+            startActivity(intent)
+        }
+
+        hard.setOnClickListener{
+            val intent = Intent(this, GameBoardActivity::class.java).apply {
+                putExtra("TYPE", "HARD")
+            }
+            startActivity(intent)
+        }
+
+
     }
 
     private fun loadGameData(){
