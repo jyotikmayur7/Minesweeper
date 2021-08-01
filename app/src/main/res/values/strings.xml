@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Minesweeper</string>
-    <string name="best_time">Best Time: %1$s</string>
-    <string name="last_game_time">Last Game Time: %1$s</string>
+    <string name="best_time">Best Time: %1$s sec</string>
+    <string name="last_game_time">Last Game Time: %1$s sec</string>
     <string name="select_difficulty">Select Board With Difficulty</string>
     <string name="easy">EASY</string>
     <string name="medium">MEDIUM</string>
