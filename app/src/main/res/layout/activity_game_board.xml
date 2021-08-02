@@ -6,4 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".GameBoardActivity">
 
+    <Button
+        android:id="@+id/restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restart"
+        app:layout_constraintEnd_toStartOf="@+id/time_label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mines_label"
+        app:layout_constraintTop_toTopOf="@+id/mines_label" />
+
+    <TextView
+        android:id="@+id/mines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/mines_label"
+        app:layout_constraintStart_toStartOf="@+id/mines_label"
+        app:layout_constraintTop_toBottomOf="@+id/mines_label"
+        tools:text="13" />
+
+    <TextView
+        android:id="@+id/mines_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/mines"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/restart"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/restart"
+        app:layout_constraintTop_toTopOf="@+id/restart" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/time_label"
+        app:layout_constraintStart_toStartOf="@+id/time_label"
+        app:layout_constraintTop_toBottomOf="@+id/time_label"
+        tools:text="10" />
 </androidx.constraintlayout.widget.ConstraintLayout>
