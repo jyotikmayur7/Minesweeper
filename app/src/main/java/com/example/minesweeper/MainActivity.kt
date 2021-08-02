@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showGameBoard(row: Int, col: Int, mines: Int){
-        intent = Intent(this, GameBoardActivity::class.java).apply {
+        val intent = Intent(this, GameBoardActivity::class.java).apply {
             putExtra("row", row)
             putExtra("col",col)
             putExtra("mines", mines)

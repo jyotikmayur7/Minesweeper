@@ -14,6 +14,12 @@ class GameBoardActivity : AppCompatActivity() {
         val time: TextView = findViewById(R.id.time)
         val restartGame: Button = findViewById(R.id.restart)
 
+        val rows: Int = intent.getIntExtra("row", 0)
+        val cols: Int = intent.getIntExtra("col", 0)
+        val mines: Int = intent.getIntExtra("mines", 0)
+
+
+
 
     }
 }
