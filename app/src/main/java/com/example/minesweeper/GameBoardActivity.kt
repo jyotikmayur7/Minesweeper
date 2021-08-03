@@ -58,7 +58,6 @@ class GameBoardActivity : AppCompatActivity() {
                 button.setOnClickListener{
                     button.isEnabled = false
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
-                    println("THIS IS BUTTON CLICKED")
                 }
                 button.setOnLongClickListener{
                     Toast.makeText(this, "Long Button Event Clicked", Toast.LENGTH_SHORT).show()
