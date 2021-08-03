@@ -1,4 +1,8 @@
 package com.example.minesweeper
 
-class Minesweeper {
+class Minesweeper(private val row: Int, private val col: Int, private val mines: Int) {
+    val status = Status.ONGOING
+    private var moves = 0
+    var minesCount = 0
+    private val MINES = -1
 }
