@@ -50,7 +50,7 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             }
 
             if(board[currentRow][currentCol].value == 0){
-                //exploreCells - Do DFS
+                exploreCells(currentRow, currentCol)
             }
             else{
                 board[currentRow][currentCol].isRevealed = true
@@ -66,4 +66,28 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
         }
         return true
     }
+
+    fun exploreCells(x: Int, y: Int){
+        if(x >= row || x < 0 || y >= col || y < 0 || board[x][y].value == MINE || board[x][y].isRevealed || board[x][y].isMarked){
+            return
+        }
+
+        moves++
+
+        if(board[x][y].value != 0){
+            board[x][y].isRevealed = true
+            return
+        }
+
+        board[x][y].isRevealed = true
+
+        for(i in xDir.indices){
+            val xStep = xDir[i]
+            val yStep = yDir[i]
+
+            exploreCells(x+xStep, y+yStep)
+        }
+
+    }
+
 }
