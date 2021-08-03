@@ -2,10 +2,7 @@ package com.example.minesweeper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
 
@@ -50,7 +47,7 @@ class GameBoardActivity : AppCompatActivity() {
             params1.weight = 1.0F
 
             for(j in 1..cols){
-                val button = Button(this)
+                val button = ImageButton(this)
                 button.id = counter
                 button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
                 button.layoutParams = params2
@@ -60,7 +57,7 @@ class GameBoardActivity : AppCompatActivity() {
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
                 }
                 button.setOnLongClickListener{
-                    Toast.makeText(this, "Long Button Event Clicked", Toast.LENGTH_SHORT).show()
+
                     true
                 }
                 linearLayout.addView(button)

@@ -35,4 +35,8 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             }
         }
     }
+
+    fun move(choice: Int, currentRow: Int, currentCol: Int){
+
+    }
 }
