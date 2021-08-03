@@ -1,10 +1,12 @@
 package com.example.minesweeper
 
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import kotlin.random.Random
 
 class Minesweeper(private val row: Int, private val col: Int, private val mines: Int) {
     val board = Array(row){Array(col){MineCell()}}
-    val status = Status.ONGOING
+    var status = Status.ONGOING
     private var moves = 0
     var minesCount = 0
     private val MINE = -1
@@ -36,7 +38,32 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
         }
     }
 
-    fun move(choice: Int, currentRow: Int, currentCol: Int){
+    fun move(choice: Int, currentRow: Int, currentCol: Int): Boolean{
+        if(choice == 1){
+            if(board[currentRow][currentCol].isMarked || board[currentRow][currentCol].isRevealed){
+                return false
+            }
 
+            if(board[currentRow][currentCol].value == MINE){
+                status = Status.LOST
+                return true
+            }
+
+            if(board[currentRow][currentCol].value == 0){
+                //exploreCells - Do DFS
+            }
+            else{
+                board[currentRow][currentCol].isRevealed = true
+                moves++
+            }
+        }
+        else{
+            board[currentRow][currentCol].isMarked = !board[currentRow][currentCol].isMarked
+        }
+
+        if(moves + minesCount == row*col){
+            status = Status.WON
+        }
+        return true
     }
 }

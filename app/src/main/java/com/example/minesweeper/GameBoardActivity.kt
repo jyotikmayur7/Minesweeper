@@ -57,7 +57,10 @@ class GameBoardActivity : AppCompatActivity() {
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
                 }
                 button.setOnLongClickListener{
-
+                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
+                    button.setImageResource(R.drawable.red_flag)
+                    button.scaleType = ImageView.ScaleType.CENTER
+                    button.adjustViewBounds = true
                     true
                 }
                 linearLayout.addView(button)
