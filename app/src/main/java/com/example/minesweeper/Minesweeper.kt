@@ -8,6 +8,8 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
     private var moves = 0
     var minesCount = 0
     private val MINE = -1
+    private val xDir = arrayOf(-1,-1,0,1,1,1,0,-1)
+    private val yDir = arrayOf(0,1,1,1,0,-1,-1,-1)
 
     fun setMines(){
         var count = 0
@@ -18,12 +20,19 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             if(board[randomRow][randomRow].value != MINE){
                 board[randomRow][randomCol].value = MINE
                 count++
-                updateNeighbours()
+                updateNeighbours(randomRow, randomCol)
             }
         }
     }
 
-    fun updateNeighbours(){
+    private fun updateNeighbours(currentRow: Int, currentCol: Int){
+        for(i in xDir.indices){
+            val xStep = currentRow + xDir[i]
+            val yStep = currentCol + yDir[i]
 
+            if(xStep in 0 until row && yStep in 0 until col && board[xStep][yStep].value != MINE){
+                board[xStep][yStep].value++
+            }
+        }
     }
 }
