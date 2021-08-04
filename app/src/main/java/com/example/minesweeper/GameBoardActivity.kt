@@ -51,22 +51,20 @@ class GameBoardActivity : AppCompatActivity() {
             for(j in 1..cols){
                 val button = ImageButton(this)
                 button.id = counter
-                button.tag = "${i-1}${j-1}"
                 button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
                 button.layoutParams = params2
                 params2.weight = 1.0F
                 button.setOnClickListener{
                     button.isEnabled = false
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
-                    val currentRow: Int = button.tag.toString().get(0).minus('0')
-                    val currentCol: Int = button.tag.toString().get(1).minus('0')
-                    gameBoard.move(1, currentRow, currentCol)
+                    gameBoard.move(1, i-1, j-1)
                 }
                 button.setOnLongClickListener{
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
                     button.setImageResource(R.drawable.red_flag)
                     button.scaleType = ImageView.ScaleType.CENTER
                     button.adjustViewBounds = true
+                    gameBoard.move(2, i-1, j-1)
                     true
                 }
                 linearLayout.addView(button)

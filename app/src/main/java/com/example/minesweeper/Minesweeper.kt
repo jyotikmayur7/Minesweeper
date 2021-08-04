@@ -58,6 +58,7 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             }
         }
         else{
+            println("This event is working $currentRow $currentCol")
             board[currentRow][currentCol].isMarked = !board[currentRow][currentCol].isMarked
         }
 
