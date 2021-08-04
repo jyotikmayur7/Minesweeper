@@ -49,6 +49,7 @@ class GameBoardActivity : AppCompatActivity() {
             for(j in 1..cols){
                 val button = ImageButton(this)
                 button.id = counter
+                button.tag = "${i-1}${j-1}"
                 button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
                 button.layoutParams = params2
                 params2.weight = 1.0F
