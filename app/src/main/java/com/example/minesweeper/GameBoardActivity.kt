@@ -112,18 +112,19 @@ class GameBoardActivity : AppCompatActivity() {
                 if(status == Status.LOST){
                     button.isEnabled = false
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
+                    if(board[i][j].value == -1){
+                        button.setBackgroundResource(R.drawable.bomb)
+                    }
                 }
             }
         }
 
         if(status == Status.LOST){
             Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
-            gameBoard.resetBoard()
         }
 
         if(status == Status.WON){
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
-            gameBoard.resetBoard()
         }
     }
 }
