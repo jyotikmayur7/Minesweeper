@@ -27,6 +27,7 @@ class GameBoardActivity : AppCompatActivity() {
 
     private fun createGameBoard(rows: Int, cols: Int, mines: Int){
         val gameBoard = Minesweeper(rows, cols, mines)
+        gameBoard.setMines()
 
         var counter = 1
 
@@ -42,36 +43,81 @@ class GameBoardActivity : AppCompatActivity() {
             setMargins(2)
         }
 
-        for(i in 1..rows){
+        for(i in 0 until rows){
             val linearLayout = LinearLayout(this)
             linearLayout.orientation = LinearLayout.HORIZONTAL
             linearLayout.layoutParams = params1
             params1.weight = 1.0F
 
-            for(j in 1..cols){
-                val button = ImageButton(this)
+            for(j in 0 until cols){
+                val button = Button(this)
                 button.id = counter
-                button.tag = "${i-1}${j-1}"
+                button.tag = "${i}${j}"
                 button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
                 button.layoutParams = params2
                 params2.weight = 1.0F
                 button.setOnClickListener{
-                    button.isEnabled = false
-                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
-                    gameBoard.move(1, i-1, j-1)
+                    gameBoard.move(1, i, j)
+                    updateBoard(rows, cols, gameBoard)
                 }
                 button.setOnLongClickListener{
-                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
-                    button.setImageResource(R.drawable.red_flag)
-                    button.scaleType = ImageView.ScaleType.CENTER
-                    button.adjustViewBounds = true
-                    gameBoard.move(2, i-1, j-1)
+                    gameBoard.move(2, i, j)
+                    updateBoard(rows, cols, gameBoard)
                     true
                 }
                 linearLayout.addView(button)
                 counter++
             }
             board.addView(linearLayout)
+        }
+    }
+
+    private fun updateBoard(row: Int, col: Int, gameBoard: Minesweeper){
+        var button: Button
+        val board = gameBoard.board
+        val status = gameBoard.status
+        var counter = 1;
+        for(i in 0 until row){
+            for(j in 0 until col){
+                button = findViewById(counter++)
+
+                if(status == Status.ONGOING){
+                    if(board[i][j].isRevealed){
+                        if(board[i][j].value != 0){
+                            button.text = board[i][j].value.toString()
+                        }
+                        button.isEnabled = false
+                        button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
+                    }
+
+                    if(!board[i][j].isRevealed){
+                        button.isEnabled = true
+                        button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
+                    }
+
+                    if(board[i][j].isMarked){
+                        button.isEnabled = false
+                    }
+
+                    if(!board[i][j].isMarked){
+                        button.isEnabled = true
+                    }
+                }
+                if(status == Status.LOST){
+                    button.isEnabled = false
+                    button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
+                }
+            }
+        }
+
+        if(status == Status.LOST){
+            Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
+            gameBoard.resetBoard()
+        }
+
+        if(status == Status.WON){
+            Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
+            gameBoard.resetBoard()
         }
     }
 }

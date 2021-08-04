@@ -5,10 +5,10 @@ import androidx.core.content.ContextCompat
 import kotlin.random.Random
 
 class Minesweeper(private val row: Int, private val col: Int, private val mines: Int) {
-    val board = Array(row){Array(col){MineCell()}}
+    var board = Array(row){Array(col){MineCell()}}
     var status = Status.ONGOING
     private var moves = 0
-    var minesCount = 0
+    var minesCount = mines
     private val MINE = -1
     private val xDir = arrayOf(-1,-1,0,1,1,1,0,-1)
     private val yDir = arrayOf(0,1,1,1,0,-1,-1,-1)
@@ -25,6 +25,7 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
                 updateNeighbours(randomRow, randomCol)
             }
         }
+        println("Mines Count: ${minesCount} Moves: ${moves} Status: ${status}")
     }
 
     private fun updateNeighbours(currentRow: Int, currentCol: Int){
@@ -58,17 +59,17 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             }
         }
         else{
-            println("This event is working $currentRow $currentCol")
             board[currentRow][currentCol].isMarked = !board[currentRow][currentCol].isMarked
         }
 
         if(moves + minesCount == row*col){
+            println("STARTING MAY YAHI HO RHA H")
             status = Status.WON
         }
         return true
     }
 
-    fun exploreCells(x: Int, y: Int){
+    private fun exploreCells(x: Int, y: Int){
         if(x >= row || x < 0 || y >= col || y < 0 || board[x][y].value == MINE || board[x][y].isRevealed || board[x][y].isMarked){
             return
         }
@@ -88,7 +89,13 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
 
             exploreCells(x+xStep, y+yStep)
         }
+    }
 
+    fun resetBoard(){
+        board = Array(row){Array(col){MineCell()}}
+        status = Status.ONGOING
+        moves = 0
+        this.setMines()
     }
 
 }
