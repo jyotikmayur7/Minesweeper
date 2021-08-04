@@ -26,6 +26,8 @@ class GameBoardActivity : AppCompatActivity() {
     }
 
     private fun createGameBoard(rows: Int, cols: Int, mines: Int){
+        val gameBoard = Minesweeper(rows, cols, mines)
+
         var counter = 1
 
         val params1 = LinearLayout.LayoutParams(
@@ -56,6 +58,9 @@ class GameBoardActivity : AppCompatActivity() {
                 button.setOnClickListener{
                     button.isEnabled = false
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
+                    val currentRow: Int = button.tag.toString().get(0).minus('0')
+                    val currentCol: Int = button.tag.toString().get(1).minus('0')
+                    gameBoard.move(1, currentRow, currentCol)
                 }
                 button.setOnLongClickListener{
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
