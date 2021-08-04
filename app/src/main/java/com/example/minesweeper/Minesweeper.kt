@@ -63,7 +63,6 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
         }
 
         if(moves + minesCount == row*col){
-            println("STARTING MAY YAHI HO RHA H")
             status = Status.WON
         }
         return true
