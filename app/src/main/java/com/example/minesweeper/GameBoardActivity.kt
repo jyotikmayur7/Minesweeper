@@ -68,6 +68,7 @@ class GameBoardActivity : AppCompatActivity() {
                 button.id = counter
                 button.tag = "not marked"
                 button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
+                button.setTextColor(ContextCompat.getColor(this, R.color.white))
                 button.layoutParams = params2
                 params2.weight = 1.0F
                 button.setOnClickListener{
@@ -103,8 +104,8 @@ class GameBoardActivity : AppCompatActivity() {
                         if(board[i][j].value != 0){
                             button.text = board[i][j].value.toString()
                         }
+                        button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
                         button.isEnabled = false
-                        button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
                     }
 
                     if(!board[i][j].isRevealed){
@@ -113,12 +114,10 @@ class GameBoardActivity : AppCompatActivity() {
                     }
 
                     if(board[i][j].isMarked){
-//                        button.isEnabled = false
                         button.setBackgroundResource(R.drawable.red_flag)
                     }
 
                     if(!board[i][j].isMarked){
-//                        button.isEnabled = true
                         button.setBackgroundResource(0)
                         button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
                     }
