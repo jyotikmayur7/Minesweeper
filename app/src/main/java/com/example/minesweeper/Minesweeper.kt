@@ -19,7 +19,7 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             val randomRow = Random.nextInt(0,row)
             val randomCol = Random.nextInt(0, col)
 
-            if(board[randomRow][randomRow].value != MINE){
+            if(board[randomRow][randomCol].value != MINE){
                 board[randomRow][randomCol].value = MINE
                 count++
                 updateNeighbours(randomRow, randomCol)
@@ -58,8 +58,17 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             }
         }
         else{
-            board[currentRow][currentCol].isMarked = !board[currentRow][currentCol].isMarked
-            if(board[currentRow][currentCol].isMarked) minesLeft-- else minesLeft++
+
+            if(minesLeft == 0){
+                if(board[currentRow][currentCol].isMarked){
+                    board[currentRow][currentCol].isMarked = false
+                    minesLeft++;
+                }
+            }
+            else{
+                board[currentRow][currentCol].isMarked = !board[currentRow][currentCol].isMarked
+                if(board[currentRow][currentCol].isMarked) minesLeft-- else minesLeft++
+            }
         }
 
         if(moves + mines == row*col){

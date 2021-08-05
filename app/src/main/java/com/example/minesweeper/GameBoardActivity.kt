@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 
 class GameBoardActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class GameBoardActivity : AppCompatActivity() {
 
         restartGame.setOnClickListener{
             gameBoard.resetBoard()
-            restartGame.isGone = true
+            restartGame.isVisible = false
         }
 
         createGameBoard(rows, cols, mines)
@@ -38,6 +39,7 @@ class GameBoardActivity : AppCompatActivity() {
     private fun createGameBoard(rows: Int, cols: Int, mines: Int){
         gameBoard = Minesweeper(rows, cols, mines)
         gameBoard.setMines()
+        minesCount.text = gameBoard.minesLeft.toString()
 
         var counter = 1
 
@@ -111,7 +113,6 @@ class GameBoardActivity : AppCompatActivity() {
                     if(board[i][j].isMarked){
 //                        button.isEnabled = false
                         button.setBackgroundResource(R.drawable.red_flag)
-                        minesCount.setText(gameBoard.minesLeft)
                     }
 
                     if(!board[i][j].isMarked){
@@ -130,14 +131,16 @@ class GameBoardActivity : AppCompatActivity() {
             }
         }
 
+        minesCount.text = gameBoard.minesLeft.toString()
+
         if(status == Status.LOST){
             Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
-            restartGame.isGone = false
+            restartGame.isVisible = true
         }
 
         if(status == Status.WON){
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
-            restartGame.isGone = false
+            restartGame.isVisible = true
         }
     }
 }
