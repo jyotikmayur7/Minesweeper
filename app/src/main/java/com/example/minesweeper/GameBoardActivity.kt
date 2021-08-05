@@ -29,8 +29,10 @@ class GameBoardActivity : AppCompatActivity() {
         val mines: Int = intent.getIntExtra("mines", 0)
 
         restartGame.setOnClickListener{
-            gameBoard.resetBoard()
-            restartGame.isVisible = false
+            val intent = intent
+            finish()
+            overridePendingTransition(0,0)
+            startActivity(intent)
         }
 
         createGameBoard(rows, cols, mines)
@@ -91,7 +93,7 @@ class GameBoardActivity : AppCompatActivity() {
         var button: Button
         val board = gameBoard.board
         val status = gameBoard.status
-        var counter = 1;
+        var counter = 1
         for(i in 0 until row){
             for(j in 0 until col){
                 button = findViewById(counter++)

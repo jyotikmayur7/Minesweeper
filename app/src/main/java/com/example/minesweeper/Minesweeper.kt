@@ -58,7 +58,6 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             }
         }
         else{
-
             if(minesLeft == 0){
                 if(board[currentRow][currentCol].isMarked){
                     board[currentRow][currentCol].isMarked = false
