@@ -7,15 +7,15 @@ import kotlin.random.Random
 class Minesweeper(private val row: Int, private val col: Int, private val mines: Int) {
     var board = Array(row){Array(col){MineCell()}}
     var status = Status.ONGOING
+    var minesLeft = mines
     private var moves = 0
-    var minesCount = mines
     private val MINE = -1
     private val xDir = arrayOf(-1,-1,0,1,1,1,0,-1)
     private val yDir = arrayOf(0,1,1,1,0,-1,-1,-1)
 
     fun setMines(){
         var count = 0
-        while(count != minesCount){
+        while(count != mines){
             val randomRow = Random.nextInt(0,row)
             val randomCol = Random.nextInt(0, col)
 
@@ -25,7 +25,6 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
                 updateNeighbours(randomRow, randomCol)
             }
         }
-        println("Mines Count: ${minesCount} Moves: ${moves} Status: ${status}")
     }
 
     private fun updateNeighbours(currentRow: Int, currentCol: Int){
@@ -60,9 +59,10 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
         }
         else{
             board[currentRow][currentCol].isMarked = !board[currentRow][currentCol].isMarked
+            if(board[currentRow][currentCol].isMarked) minesLeft-- else minesLeft++
         }
 
-        if(moves + minesCount == row*col){
+        if(moves + mines == row*col){
             status = Status.WON
         }
         return true

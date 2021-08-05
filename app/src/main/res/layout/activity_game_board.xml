@@ -24,7 +24,8 @@
         app:layout_constraintEnd_toEndOf="@+id/mines_label"
         app:layout_constraintStart_toStartOf="@+id/mines_label"
         app:layout_constraintTop_toBottomOf="@+id/mines_label"
-        tools:text="13" />
+        tools:text="13"
+        android:paddingBottom="15dp"/>
 
     <TextView
         android:id="@+id/mines_label"

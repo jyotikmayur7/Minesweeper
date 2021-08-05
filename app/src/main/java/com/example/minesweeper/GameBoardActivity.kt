@@ -1,32 +1,42 @@
 package com.example.minesweeper
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.core.view.setMargins
 
 class GameBoardActivity : AppCompatActivity() {
     lateinit var board: LinearLayout
+    lateinit var minesCount: TextView
+    lateinit var gameBoard: Minesweeper
+    lateinit var restartGame: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_board)
 
         board = findViewById(R.id.board)
-        val minesCount: TextView = findViewById(R.id.mines)
+        minesCount = findViewById(R.id.mines)
         val time: TextView = findViewById(R.id.time)
-        val restartGame: Button = findViewById(R.id.restart)
+        restartGame = findViewById(R.id.restart)
 
         val rows: Int = intent.getIntExtra("row", 0)
         val cols: Int = intent.getIntExtra("col", 0)
         val mines: Int = intent.getIntExtra("mines", 0)
 
+        restartGame.setOnClickListener{
+            gameBoard.resetBoard()
+            restartGame.isGone = true
+        }
+
         createGameBoard(rows, cols, mines)
     }
 
     private fun createGameBoard(rows: Int, cols: Int, mines: Int){
-        val gameBoard = Minesweeper(rows, cols, mines)
+        gameBoard = Minesweeper(rows, cols, mines)
         gameBoard.setMines()
 
         var counter = 1
@@ -101,6 +111,7 @@ class GameBoardActivity : AppCompatActivity() {
                     if(board[i][j].isMarked){
 //                        button.isEnabled = false
                         button.setBackgroundResource(R.drawable.red_flag)
+                        minesCount.setText(gameBoard.minesLeft)
                     }
 
                     if(!board[i][j].isMarked){
@@ -121,10 +132,12 @@ class GameBoardActivity : AppCompatActivity() {
 
         if(status == Status.LOST){
             Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
+            restartGame.isGone = false
         }
 
         if(status == Status.WON){
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
+            restartGame.isGone = false
         }
     }
 }
