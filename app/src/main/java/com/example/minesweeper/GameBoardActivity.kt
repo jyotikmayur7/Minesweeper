@@ -142,6 +142,7 @@ class GameBoardActivity : AppCompatActivity() {
         if(status == Status.WON){
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
+
         }
     }
 }
