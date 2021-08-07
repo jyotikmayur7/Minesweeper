@@ -52,7 +52,7 @@
         app:layout_constraintStart_toEndOf="@+id/restart"
         app:layout_constraintTop_toTopOf="@+id/restart" />
 
-    <TextView
+    <Chronometer
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
