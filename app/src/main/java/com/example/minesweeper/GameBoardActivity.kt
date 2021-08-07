@@ -3,11 +3,13 @@ package com.example.minesweeper
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
+import java.lang.Math.ceil
 
 class GameBoardActivity : AppCompatActivity() {
     lateinit var board: LinearLayout
@@ -134,12 +136,15 @@ class GameBoardActivity : AppCompatActivity() {
 
         if(status == Status.LOST){
             timer.stop()
+            val time: Double = (SystemClock.elapsedRealtime() - timer.base - 1000)/1000.0
+            println(ceil(time))
             Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
         }
 
         if(status == Status.WON){
             timer.stop()
+            println(SystemClock.elapsedRealtime() - timer.base)
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
         }
