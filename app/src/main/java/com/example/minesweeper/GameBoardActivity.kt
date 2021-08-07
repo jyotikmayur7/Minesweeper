@@ -170,14 +170,5 @@ class GameBoardActivity : AppCompatActivity() {
             putString(GAME_DATA, gameData)
             commit()
         }
-        loadSharedPref()
-    }
-
-    private fun loadSharedPref(){
-        val sharedPref = getSharedPreferences(GAME_PREF, Context.MODE_PRIVATE)
-        val gameDataJson = sharedPref.getString(GAME_DATA, null)
-        val gson = Gson()
-        val gameData: GameData? = gson.fromJson(gameDataJson, GameData::class.java)
-        println("Best Time: ${gameData?.bestTime}, Last Time: ${gameData?.lastGameTime}")
     }
 }
