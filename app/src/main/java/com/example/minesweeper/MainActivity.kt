@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 
 const val GAME_DATA = "GAME_DATA"
+const val GAME_PREF = "GAME_PREF"
 
 class MainActivity : AppCompatActivity() {
         lateinit var bestTime: TextView
@@ -91,10 +92,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadGameData(){
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences(GAME_PREF, Context.MODE_PRIVATE)
         val gameDataJson = sharedPref.getString(GAME_DATA, null)
         val gson = Gson()
         val gameData: GameData? = gson.fromJson(gameDataJson, GameData::class.java)
+        println("Best Time: ${gameData?.bestTime}, Last Time: ${gameData?.lastGameTime}")
         bestTime.text = getString(R.string.best_time, gameData?.bestTime?:" - -")
         lastGameTime.text = getString(R.string.last_game_time, gameData?.lastGameTime?:" - -")
     }

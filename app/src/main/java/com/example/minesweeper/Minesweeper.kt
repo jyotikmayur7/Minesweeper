@@ -25,6 +25,11 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
                 updateNeighbours(randomRow, randomCol)
             }
         }
+
+//        for(i in 0 until mines){
+//            board[0][i].value = MINE
+//            updateNeighbours(0,i)
+//        }
     }
 
     private fun updateNeighbours(currentRow: Int, currentCol: Int){

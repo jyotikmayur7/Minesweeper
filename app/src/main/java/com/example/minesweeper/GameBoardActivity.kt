@@ -1,5 +1,6 @@
 package com.example.minesweeper
 
+import android.content.Context
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
+import com.google.gson.Gson
 import java.lang.Math.ceil
 
 class GameBoardActivity : AppCompatActivity() {
@@ -17,7 +19,6 @@ class GameBoardActivity : AppCompatActivity() {
     lateinit var gameBoard: Minesweeper
     lateinit var restartGame: Button
     lateinit var timer: Chronometer
-    var time: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,16 +137,47 @@ class GameBoardActivity : AppCompatActivity() {
 
         if(status == Status.LOST){
             timer.stop()
-            time = ceil((SystemClock.elapsedRealtime() - timer.base - 1000) /1000.0).toInt()
             Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
         }
 
         if(status == Status.WON){
             timer.stop()
-            println(SystemClock.elapsedRealtime() - timer.base)
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
+            saveTime()
         }
+    }
+
+    private fun saveTime(){
+        val time = ceil((SystemClock.elapsedRealtime() - timer.base - 1000) /1000.0).toInt()
+        val sharedPref = getSharedPreferences(GAME_PREF, Context.MODE_PRIVATE)
+        val gson = Gson()
+        var bestTime: String = time.toString()
+
+        val timeData = sharedPref.getString(GAME_DATA, null)
+        val prevGameData: GameData? = gson.fromJson(timeData, GameData::class.java)
+
+        if(prevGameData?.bestTime != null){
+            if(time > prevGameData.bestTime.toInt()){
+                bestTime = prevGameData.bestTime
+            }
+        }
+
+        val gameData = gson.toJson(GameData(bestTime, time.toString()))
+
+        with(sharedPref.edit()){
+            putString(GAME_DATA, gameData)
+            commit()
+        }
+        loadSharedPref()
+    }
+
+    private fun loadSharedPref(){
+        val sharedPref = getSharedPreferences(GAME_PREF, Context.MODE_PRIVATE)
+        val gameDataJson = sharedPref.getString(GAME_DATA, null)
+        val gson = Gson()
+        val gameData: GameData? = gson.fromJson(gameDataJson, GameData::class.java)
+        println("Best Time: ${gameData?.bestTime}, Last Time: ${gameData?.lastGameTime}")
     }
 }
