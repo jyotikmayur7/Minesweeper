@@ -97,12 +97,4 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             exploreCells(x+xStep, y+yStep)
         }
     }
-
-    fun resetBoard(){
-        board = Array(row){Array(col){MineCell()}}
-        status = Status.ONGOING
-        moves = 0
-        this.setMines()
-    }
-
 }
