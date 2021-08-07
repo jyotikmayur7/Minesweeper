@@ -116,11 +116,6 @@ class GameBoardActivity : AppCompatActivity() {
                     if(board[i][j].isMarked){
                         button.setBackgroundResource(R.drawable.red_flag)
                     }
-
-                    if(!board[i][j].isMarked){
-                        button.setBackgroundResource(0)
-                        button.setBackgroundColor(ContextCompat.getColor(this, R.color.lavender))
-                    }
                 }
                 if(status == Status.LOST){
                     button.isEnabled = false
@@ -142,7 +137,6 @@ class GameBoardActivity : AppCompatActivity() {
         if(status == Status.WON){
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
-
         }
     }
 }
