@@ -123,11 +123,17 @@ class GameBoardActivity : AppCompatActivity() {
                         button.setBackgroundResource(R.drawable.red_flag)
                     }
                 }
-                if(status == Status.LOST){
+                else if(status == Status.LOST){
                     button.isEnabled = false
                     button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
                     if(board[i][j].value == -1){
                         button.setBackgroundResource(R.drawable.bomb)
+                    }
+                }
+                else{
+                    button.isEnabled = false
+                    if(!board[i][j].isMarked){
+                        button.setBackgroundColor(ContextCompat.getColor(this, R.color.mauve))
                     }
                 }
             }
