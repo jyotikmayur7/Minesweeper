@@ -82,6 +82,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadGameData()
+
+    }
+
     private fun showGameBoard(row: Int, col: Int, mines: Int){
         val intent = Intent(this, GameBoardActivity::class.java).apply {
             putExtra("row", row)
