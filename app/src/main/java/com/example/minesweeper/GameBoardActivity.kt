@@ -17,6 +17,7 @@ class GameBoardActivity : AppCompatActivity() {
     lateinit var gameBoard: Minesweeper
     lateinit var restartGame: Button
     lateinit var timer: Chronometer
+    var time: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,6 @@ class GameBoardActivity : AppCompatActivity() {
 
         createGameBoard(rows, cols, mines)
         timer.start()
-
     }
 
     private fun createGameBoard(rows: Int, cols: Int, mines: Int){
@@ -136,8 +136,7 @@ class GameBoardActivity : AppCompatActivity() {
 
         if(status == Status.LOST){
             timer.stop()
-            val time: Double = (SystemClock.elapsedRealtime() - timer.base - 1000)/1000.0
-            println(ceil(time))
+            time = ceil((SystemClock.elapsedRealtime() - timer.base - 1000) /1000.0).toInt()
             Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
         }

@@ -53,17 +53,6 @@
         app:layout_constraintTop_toTopOf="@+id/restart" />
 
     <Chronometer
-        android:id="@+id/chronometer_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/time_label"
-        app:layout_constraintStart_toStartOf="@+id/time_label"
-        app:layout_constraintTop_toBottomOf="@+id/time_label"
-        />
-
-    <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
