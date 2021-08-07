@@ -16,4 +16,8 @@
     <string name="cancel">Cancel</string>
     <string name="restart">RESTART</string>
     <string name="time">Time</string>
+    <string name="exit_game">Exit Game</string>
+    <string name="exit_message">Do you want to exit game from this level</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

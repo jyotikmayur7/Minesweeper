@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -175,6 +176,24 @@ class GameBoardActivity : AppCompatActivity() {
         with(sharedPref.edit()){
             putString(GAME_DATA, gameData)
             commit()
+        }
+    }
+
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        with(builder){
+            setTitle(getString(R.string.exit_game))
+            setMessage(getString(R.string.exit_message))
+
+            setPositiveButton(getString(R.string.yes)){
+                _, _ ->
+                super.onBackPressed()
+            }
+
+            setNegativeButton(getString((R.string.no))){
+                _, _ ->
+            }
+            show()
         }
     }
 }
