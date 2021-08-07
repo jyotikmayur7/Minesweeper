@@ -37,6 +37,8 @@ class GameBoardActivity : AppCompatActivity() {
         }
 
         createGameBoard(rows, cols, mines)
+        timer.start()
+
     }
 
     private fun createGameBoard(rows: Int, cols: Int, mines: Int){
@@ -131,11 +133,13 @@ class GameBoardActivity : AppCompatActivity() {
         minesCount.text = gameBoard.minesLeft.toString()
 
         if(status == Status.LOST){
+            timer.stop()
             Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
         }
 
         if(status == Status.WON){
+            timer.stop()
             Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
             restartGame.isVisible = true
         }
