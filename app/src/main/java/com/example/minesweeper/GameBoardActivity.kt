@@ -22,7 +22,7 @@ class GameBoardActivity : AppCompatActivity() {
 
         board = findViewById(R.id.board)
         minesCount = findViewById(R.id.mines)
-        time = findViewById(R.id.time)
+        timer = findViewById(R.id.time)
         restartGame = findViewById(R.id.restart)
 
         val rows: Int = intent.getIntExtra("row", 0)
