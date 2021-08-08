@@ -25,15 +25,19 @@ class GameBoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_board)
 
+        // Taking reference from UI and connecting the views in the Activity
         board = findViewById(R.id.board)
         minesCount = findViewById(R.id.mines)
+        // Here timer is of type Chronometer view, which is more suitable for Timer type operations
         timer = findViewById(R.id.time)
         restartGame = findViewById(R.id.restart)
 
+        // Loading parameters (Row, Cols, Mines) from intent
         val rows: Int = intent.getIntExtra("row", 0)
         val cols: Int = intent.getIntExtra("col", 0)
         val mines: Int = intent.getIntExtra("mines", 0)
 
+        // Using Intent to restart the current activity on restartGame button click event when the game finishes
         restartGame.setOnClickListener{
             val intent = intent
             finish()
@@ -41,17 +45,24 @@ class GameBoardActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Creating the game board based on the argument received from intent
         createGameBoard(rows, cols, mines)
+
+        // Once the game board is created, this starts the game timer
         timer.start()
     }
 
+    // Creating dynamic game board with respect to the arguments passed in. Using 2 Linear Layouts for creating Button Matrix
     private fun createGameBoard(rows: Int, cols: Int, mines: Int){
+        // Creating Minesweeper object and setting mines on the board
         gameBoard = Minesweeper(rows, cols, mines)
         gameBoard.setMines()
         minesCount.text = gameBoard.minesLeft.toString()
 
+        // Initialising and later using this variable for button's id
         var counter = 1
 
+        // Setting up parameters beforehand for the Linear Layouts
         val params1 = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             0
@@ -64,6 +75,7 @@ class GameBoardActivity : AppCompatActivity() {
             setMargins(2)
         }
 
+        // Creating the game board dynamically
         for(i in 0 until rows){
             val linearLayout = LinearLayout(this)
             linearLayout.orientation = LinearLayout.HORIZONTAL
@@ -78,6 +90,8 @@ class GameBoardActivity : AppCompatActivity() {
                 button.setTextColor(ContextCompat.getColor(this, R.color.white))
                 button.layoutParams = params2
                 params2.weight = 1.0F
+                // Setting the click events on the button
+                // Here only allowing non marked or non flagged button to be clicked in the board
                 button.setOnClickListener{
                     if(button.tag != "marked"){
                         gameBoard.move(1, i, j)
@@ -97,6 +111,8 @@ class GameBoardActivity : AppCompatActivity() {
         }
     }
 
+    // This function is getting called after every button click in the matrix and this function is responsible for updating the UI (game board).
+    // It compares the board matrix present in the memory with the buttons matrix which is shown in the UI and updates the UI accordingly
     private fun updateBoard(row: Int, col: Int, gameBoard: Minesweeper){
         var button: Button
         val board = gameBoard.board
@@ -156,7 +172,10 @@ class GameBoardActivity : AppCompatActivity() {
         }
     }
 
+    // This function is called when the Users wins the game
+    // This function is responsible for updating the Shared Preference, it checks first if the current time is better than previous saved best times and updates accordingly
     private fun saveTime(){
+        // Getting time from the timer (Chronometer View) and converting it to seconds
         val time = ceil((SystemClock.elapsedRealtime() - timer.base - 1000) /1000.0).toInt()
         val sharedPref = getSharedPreferences(GAME_PREF, Context.MODE_PRIVATE)
         val gson = Gson()
@@ -179,6 +198,7 @@ class GameBoardActivity : AppCompatActivity() {
         }
     }
 
+    // This function is called when back button is pressed by user, it asks user in form of AlertDialog if they actually want exit the game at that level or not and perform operation accordingly
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
         with(builder){

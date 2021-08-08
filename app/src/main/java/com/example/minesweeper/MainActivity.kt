@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 
+// Using these constants for shared preference
 const val GAME_DATA = "GAME_DATA"
 const val GAME_PREF = "GAME_PREF"
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Taking reference from UI and connecting the views in the Activity
         bestTime = findViewById(R.id.best_time)
         lastGameTime = findViewById(R.id.last_game_time)
         val easy = findViewById<Button>(R.id.easy)
@@ -32,8 +34,10 @@ class MainActivity : AppCompatActivity() {
         val hard = findViewById<Button>(R.id.hard)
         val createCustomBoard = findViewById<Button>(R.id.create_custom_board)
 
+        // Loading game data from the shared preference
         loadGameData()
 
+        // Showing game board with respect to the game level when the respected button is clicked
         easy.setOnClickListener{
             showGameBoard(8, 8, 7)
         }
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             showGameBoard(10, 10, 20)
         }
 
+        // Showing AlertDialog and asking User for number of Rows, Cols and Mines for their custom board
         createCustomBoard.setOnClickListener{
             val builder = AlertDialog.Builder(this)
             val inflater = this.layoutInflater
@@ -82,12 +87,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // When user return from GameBoardActivity, this onResume() function will reload the data from shared preference and updates the UI
     override fun onResume() {
         super.onResume()
         loadGameData()
 
     }
 
+    // This function is called when level(easy, medium, hard or custom) button gets clicked, this function uses intent and passes the row, cols and mines to the GameBoardActivity
     private fun showGameBoard(row: Int, col: Int, mines: Int){
         val intent = Intent(this, GameBoardActivity::class.java).apply {
             putExtra("row", row)
@@ -97,6 +104,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    // This function loads game data ('Best Time', 'Last Game Time') from the memory and updates the UI accordingly
     private fun loadGameData(){
         val sharedPref = getSharedPreferences(GAME_PREF, Context.MODE_PRIVATE)
         val gameDataJson = sharedPref.getString(GAME_DATA, null)
@@ -107,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         lastGameTime.text = getString(R.string.last_game_time, gameData?.lastGameTime?:" - -")
     }
 
+    // This function is used when AlertDialog for custom board creation pops up. This function provides error handling for the EditText present in the AlertDialog
     private fun setErrorListener(editText: EditText){
         editText.error = if(editText.text.toString().isNotEmpty()) null else "Field Cannot be Empty"
         with(editText) {

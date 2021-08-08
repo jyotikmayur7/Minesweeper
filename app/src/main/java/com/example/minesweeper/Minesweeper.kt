@@ -3,7 +3,7 @@ package com.example.minesweeper
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import kotlin.random.Random
-
+// This class is responsible for Minesweeper game operations on the board created here and UI uses this as reference to update itself
 class Minesweeper(private val row: Int, private val col: Int, private val mines: Int) {
     var board = Array(row){Array(col){MineCell()}}
     var status = Status.ONGOING
@@ -13,6 +13,7 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
     private val xDir = arrayOf(-1,-1,0,1,1,1,0,-1)
     private val yDir = arrayOf(0,1,1,1,0,-1,-1,-1)
 
+    // Setting up mines on random location and putting correct values on neighbour cells
     fun setMines(){
         var count = 0
         while(count != mines){
@@ -27,6 +28,8 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
         }
     }
 
+    // This function is called when mines were setting up
+    // It is responsible for updating the cell's value which is neighbour of mine
     private fun updateNeighbours(currentRow: Int, currentCol: Int){
         for(i in xDir.indices){
             val xStep = currentRow + xDir[i]
@@ -38,7 +41,9 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
         }
     }
 
+    // Making move on the board with respect to the user's choice
     fun move(choice: Int, currentRow: Int, currentCol: Int): Boolean{
+        // When the choice is 1, it checks it the move is possible and then make moves accordingly
         if(choice == 1){
             if(board[currentRow][currentCol].isMarked || board[currentRow][currentCol].isRevealed){
                 return false
@@ -49,6 +54,7 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
                 return true
             }
 
+            // When the move is possible if the current cell's value is 0 then it explores all the cells and updates them and if cells value is 1 it updates the cells accordingly
             if(board[currentRow][currentCol].value == 0){
                 exploreCells(currentRow, currentCol)
             }
@@ -57,6 +63,7 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
                 moves++
             }
         }
+        // When the choice is 2, it checks if marking the cell is possible or not
         else{
             if(minesLeft == 0){
                 if(board[currentRow][currentCol].isMarked){
@@ -70,12 +77,14 @@ class Minesweeper(private val row: Int, private val col: Int, private val mines:
             }
         }
 
+        // Checking for Win, basically when all the cells are explored/used without making a wrong move, the user win's the game
         if(moves + mines == row*col){
             status = Status.WON
         }
         return true
     }
 
+    // Exploring the cells in all directions and stopping until we hit mines neighbour
     private fun exploreCells(x: Int, y: Int){
         if(x >= row || x < 0 || y >= col || y < 0 || board[x][y].value == MINE || board[x][y].isRevealed || board[x][y].isMarked){
             return
