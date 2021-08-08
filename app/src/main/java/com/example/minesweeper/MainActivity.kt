@@ -110,7 +110,6 @@ class MainActivity : AppCompatActivity() {
         val gameDataJson = sharedPref.getString(GAME_DATA, null)
         val gson = Gson()
         val gameData: GameData? = gson.fromJson(gameDataJson, GameData::class.java)
-        println("Best Time: ${gameData?.bestTime}, Last Time: ${gameData?.lastGameTime}")
         bestTime.text = getString(R.string.best_time, gameData?.bestTime?:" - -")
         lastGameTime.text = getString(R.string.last_game_time, gameData?.lastGameTime?:" - -")
     }
