@@ -158,17 +158,18 @@ class GameBoardActivity : AppCompatActivity() {
 
         minesCount.text = gameBoard.minesLeft.toString()
 
-        if(status == Status.LOST){
-            timer.stop()
-            Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
-            restartGame.isVisible = true
-        }
-
-        if(status == Status.WON){
-            timer.stop()
-            Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
-            restartGame.isVisible = true
-            saveTime()
+        when(status){
+            Status.LOST -> {
+                timer.stop()
+                Toast.makeText(this,"You've lost the game", Toast.LENGTH_SHORT).show()
+                restartGame.isVisible = true
+            }
+            Status.WON -> {
+                timer.stop()
+                Toast.makeText(this,"You've won the game", Toast.LENGTH_SHORT).show()
+                restartGame.isVisible = true
+                saveTime()
+            }
         }
     }
 
